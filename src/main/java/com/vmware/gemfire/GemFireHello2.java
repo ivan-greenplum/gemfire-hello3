@@ -64,7 +64,7 @@ public class GemFireHello2 {
         System.out.println("Cache with Local Proxy Region for 'presidents' created successfully");
 
 	String csvFile = "./us_presidents.csv";
-	GemfireHello2 reader = new PresidentReader();
+	GemFireHello2 reader = new GemFireHello2();
 	Map<Integer, String> presidentsMap = reader.readPresidentsFromFile(csvFile);
 
 	for (Map.Entry<Integer, String> entry : presidentsMap.entrySet()) {
