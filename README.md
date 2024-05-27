@@ -12,12 +12,12 @@ Create a locator
 ```
 start locator --dir state/locator1 --properties-file state/locator1/gemfire.properties
 ```
-Start s2
+Start s1 member
 ```
 start server --server-port 0 --dir state/s1 --properties-file state/s1/gemfire.properties
 ```
 
-Start s2
+Start s2 member
 ```
 start server --server-port 0 --dir state/s2 --properties-file state/s2/gemfire.properties
 ```
