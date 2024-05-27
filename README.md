@@ -1,3 +1,13 @@
+Setup statistics so we can monitor stats at the member level
+```
+mkdir state/locator1
+mkdir state/s1
+mkdir state/s2
+cp gemfire.properties state/locator1
+cp gemfire.properties state/s1
+cp gemfire.properties state/s2
+```
+
 Create a locator and two servers in gfsh
 ```
 start locator --dir state/locator1
