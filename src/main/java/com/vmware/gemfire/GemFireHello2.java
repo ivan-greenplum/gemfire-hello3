@@ -68,8 +68,16 @@ public class GemFireHello2 {
 	Map<Integer, String> presidentsMap = reader.readPresidentsFromFile(csvFile);
 
 	for (Map.Entry<Integer, String> entry : presidentsMap.entrySet()) {
-		System.out.println("Put President Number: " + entry.getKey() + ", Name: " + entry.getValue());
-        	region.put(entry.getKey(), entry.getValue());
+		Integer presno = entry.getKey();
+		String  presname = entry.getValue();
+		try {
+			System.out.println("Put President Number: " + presno + ", Name: " + presname);
+			region.put(presno, presname);
+			System.out.println("Successfully put President Number: " + presno + ", Name: " + presname);
+		} catch (Exception e) {
+			System.err.println("Error putting President Number: " + presno + ", Name: " + presname);
+			e.printStackTrace();
+		}
 	}
 
         System.out.println("Data Inserted to Gemfire Successfully");
