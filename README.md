@@ -10,9 +10,9 @@ cp gemfire.properties state/s2
 
 Create a locator and two servers in gfsh
 ```
-start locator --dir state/locator1
-start server --server-port 0 --dir state/s1
-start server --server-port 0 --dir state/s2
+start locator --dir state/locator1 --properties-file state/locator1/gemfire.properties
+start server --server-port 0 --dir state/s1 --properties-file state/locator1/gemfire.properties
+start server --server-port 0 --dir state/s2 --properties-file state/locator1/gemfire.properties
 ```
 
 Create a region for the data
