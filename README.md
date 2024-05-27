@@ -33,11 +33,20 @@ mvn clean compile dependency:copy-dependencies package
 ```
 
 Use this version on linux
-```text
+```
 java -cp target/GemFireHello2-1.0.jar:target/dependency/*  com.vmware.gemfire.GemFireHello2
 ```
 
 Use this version on Windows
-```text
+```
 java -cp "target/GemFireHello2-1.0.jar;target/dependency/*"  com.vmware.gemfire.GemFireHello2
+```
+
+Validate whats in the region
+```
+show metrics --region=/presidents
+```
+Validate whats in the region for keys and values
+```
+query --query="SELECT key, value FROM /presidents"
 ```
