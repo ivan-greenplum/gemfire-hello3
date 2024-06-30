@@ -23,7 +23,9 @@ query --query="SELECT * FROM /presidents"
 
 # Exercise 1:
 Add a command line option to differentiate the actions
+```
 -- put-all
 -- get-all
 -- get-one [key]
+```
 The get-one will take a parameter and just get single president by its id
