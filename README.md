@@ -15,3 +15,8 @@ Run the code
 ```
  java -cp target/gemfire-hello2-1.0-SNAPSHOT.jar:target/dependency/*  com.vmware.gemfire.GemFireHello2
 ```
+
+Run the query again
+```
+query --query="SELECT * FROM /presidents"
+```
