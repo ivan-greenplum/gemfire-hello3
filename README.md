@@ -10,3 +10,8 @@ Compile the code in this repo
 ```
 mvn clean compile dependency:copy-dependencies package
 ```
+
+Run the code
+```
+ java -cp target/gemfire-hello2-1.0-SNAPSHOT.jar:target/dependency/*  com.vmware.gemfire.GemFireHello2
+```
