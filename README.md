@@ -20,5 +20,3 @@ Run the query again
 ```
 query --query="SELECT * FROM /presidents"
 ```
-
-lets inspect the code
