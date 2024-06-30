@@ -59,7 +59,7 @@ public class GemFireHello2 {
         cache = factory.create();
 
         // configure and create local proxy Region named example
-        region = cache.<Integer, String>createClientRegionFactory( ClientRegionShortcut.PROXY).create("presidents");
+        region = cache.<Integer, String>createClientRegionFactory( ClientRegionShortcut.CACHING_PROXY).create("presidents");
 
         System.out.println("Cache with Local Proxy Region for 'presidents' created successfully");
 
@@ -82,17 +82,11 @@ public class GemFireHello2 {
 
         System.out.println("Data Inserted to Gemfire Successfully");
 
-	for (int j = 1; j < 1; j++){
-    		System.out.println("LOOP #" + j);
-		for (int i = 1; i <= 1; i++) {
-        		p_value = region.get(i);
- 	   		System.out.println("President #" + i + " was " + p_value);
-		}
-		try {
-			   Thread.sleep(100);
-		} catch (InterruptedException e) {
-			System.err.println("Sleep was interrupted");	
-		}
+	for (Map.Entry<Integer, String> entry : region.entrySet()) {
+
+	    Integer key = entry.getKey();
+            String value = entry.getValue();
+            System.out.println("President #" + key + " was " + value);
 	}
         cache.close();
     }
