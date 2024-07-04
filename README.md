@@ -24,13 +24,15 @@ query --query="SELECT * FROM /presidents"
 # Exercise 1:
 Add a command line option to differentiate the actions
 ```
+-- delete-all
 -- put-all
 -- get-all
 -- get-one [key]
+-- delete-one [key]
 ```
 The get-one will take a parameter and just get single president by its id
 
-# Exercise 1:
+# NOTES:
 1. Change the code to use PROXY instead of CACHING_PROXY
 2. You will need to change how you fetch the list of keys using keySetOnServer()
    
