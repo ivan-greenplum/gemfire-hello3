@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GemFireHello2 {
+public class GemFireHello3 {
 
   public Map<Integer, String> readPresidentsFromFile(String csvFile) {
         String line = "";
@@ -64,7 +64,7 @@ public class GemFireHello2 {
         System.out.println("Cache with Local Proxy Region for 'presidents' created successfully");
 
 	String csvFile = "./us_presidents.csv";
-	GemFireHello2 reader = new GemFireHello2();
+	GemFireHello3 reader = new GemFireHello3();
 	Map<Integer, String> presidentsMap = reader.readPresidentsFromFile(csvFile);
 
 	for (Map.Entry<Integer, String> entry : presidentsMap.entrySet()) {
