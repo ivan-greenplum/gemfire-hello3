@@ -51,3 +51,10 @@ test lucene index
 ```
 search lucene --name=presidentIndex --region=/presidents --queryString="Lincoln" --defaultField=name
 ```
+
+Another search
+```
+search lucene --name=presidentIndex --region=/presidents --queryString="John" --defaultField=name
+```
+
+
