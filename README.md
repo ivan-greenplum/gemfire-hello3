@@ -49,5 +49,5 @@ create lucene index --name=presidentIndex --region=/presidents --field=name
 
 test lucene index
 ```
-search lucene --name=presidentIndex --region=/presidents --queryString="*Lincoln*" --defaultField=name
+search lucene --name=presidentIndex --region=/presidents --queryString="Lincoln" --defaultField=name
 ```
