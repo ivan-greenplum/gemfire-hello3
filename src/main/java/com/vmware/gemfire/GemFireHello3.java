@@ -6,6 +6,12 @@ import org.apache.geode.cache.client.ClientCache;
 import org.apache.geode.distributed.ConfigurationProperties;
 import org.apache.geode.cache.Region;
 
+import org.apache.geode.cache.lucene.LuceneQuery;
+import org.apache.geode.cache.lucene.LuceneQueryFactory;
+import org.apache.geode.cache.lucene.LuceneService;
+import org.apache.geode.cache.lucene.LuceneServiceProvider;
+import org.apache.geode.cache.lucene.LuceneResultStruct;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -46,26 +52,7 @@ public class GemFireHello3 {
         return presidentsMap;
     }
 
-    public static void main(String[] args) {
-        
-        String p_value;
-        ClientCache cache;
-	ClientCacheFactory factory;
-        Region<Integer, President> region;
-
-	factory = new ClientCacheFactory();
-
-        // Specify Locator Host and Port that is running
-        // change logging to be less verbose then default INFO
-	factory.addPoolLocator("127.0.0.1", 10334);
-	factory.set(ConfigurationProperties.LOG_LEVEL, "warn");
-        cache = factory.create();
-
-        // configure and create local proxy Region named example
-        region = cache.<Integer, President>createClientRegionFactory( ClientRegionShortcut.CACHING_PROXY).create("presidents");
-
-        System.out.println("Cache with Local Proxy Region for 'presidents' created successfully");
-
+    private static void loadData(Region<Integer, President> region) {
 	String csvFile = "./us_presidents.csv";
 	GemFireHello3 reader = new GemFireHello3();
 	Map<Integer, President> presidentsMap = reader.readPresidentsFromFile(csvFile);
@@ -91,6 +78,74 @@ public class GemFireHello3 {
             President value = entry.getValue();
             System.out.println("President #" + key + " was " + value.getName());
 	}
-        cache.close();
     }
+
+    private static void performLuceneSearch(ClientCache cache, String searchString) {
+        LuceneService luceneService = LuceneServiceProvider.get(cache);
+        LuceneQueryFactory queryFactory = luceneService.createLuceneQueryFactory();
+
+        LuceneQuery<Integer, President> query = queryFactory.create("presidentIndex", "presidents", searchString, "name");
+
+        try {
+            List<LuceneResultStruct<Integer, President>> results = query.findResults();
+
+            System.out.println("Search results for query: " + searchString);
+            for (LuceneResultStruct<Integer, President> result : results) {
+                Integer key = result.getKey();
+                President president = result.getValue();
+                float score = result.getScore();
+
+                System.out.println("Key: " + key + ", President: " + president.getName() + ", Score: " + score);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        
+        String p_value;
+        ClientCache cache;
+	ClientCacheFactory factory;
+        Region<Integer, President> region;
+
+	factory = new ClientCacheFactory();
+
+        // Specify Locator Host and Port that is running
+        // change logging to be less verbose then default INFO
+	factory.addPoolLocator("127.0.0.1", 10334);
+	factory.set(ConfigurationProperties.LOG_LEVEL, "warn");
+        cache = factory.create();
+
+        // configure and create local proxy Region named example
+        region = cache.<Integer, President>createClientRegionFactory( ClientRegionShortcut.CACHING_PROXY).create("presidents");
+
+        System.out.println("Cache with Local Proxy Region for 'presidents' created successfully");
+
+	// Check for command-line arguments
+	if (args.length == 0)
+	{
+            System.err.println("No arguments provided. Usage:");
+            System.err.println("To load data: java GemFireHello3 load");
+            System.err.println("To search data: java GemFireHello3 search <searchString>");
+	    System.exit(1);
+	}
+
+        String mode = args[0];
+
+        if ("load".equalsIgnoreCase(mode)) {
+        	// Load data into the region
+                loadData(region);
+        } else if ("search".equalsIgnoreCase(mode) && args.length > 1) {
+                // Perform a search with the provided search string
+                String searchString = args[1];
+                performLuceneSearch(cache, searchString);
+        } else {
+                System.err.println("Invalid arguments. Usage:");
+                System.err.println("To load data: java GemFireHello3 load");
+                System.err.println("To search data: java GemFireHello3 search <searchString>");
+        }
+
+	cache.close();
+    } 
 }
