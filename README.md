@@ -35,3 +35,8 @@ Now lets create a text index on the presidents
 ```
 create lucene index --name=presidentIndex --region=/presidents --field=name
 ```
+
+test lucene index
+```
+search lucene --name=presidentIndex --region=/presidents --queryString="*Lincoln*" --defaultField=name
+```
