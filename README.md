@@ -20,7 +20,7 @@ mvn clean compile dependency:copy-dependencies package
 
 Run the code
 ```
- java -cp target/gemfire-hello3-1.0-SNAPSHOT.jar:target/dependency/*  com.vmware.gemfire.GemFireHello3
+java -cp target/gemfire-hello3-1.0-SNAPSHOT.jar:target/dependency/*  com.vmware.gemfire.GemFireHello3 load
 ```
 Deploy package to the server inside gfsh
 ```
