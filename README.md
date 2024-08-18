@@ -94,4 +94,10 @@ This means that results containing "George" will be ranked higher in the search 
 The term "Adams" is included in the query without any boost, so it will have a standard relevance score.
 
 
+Now you can use the CLI to do the search as well:
+```
+java -cp target/gemfire-hello3-1.0-SNAPSHOT.jar:target/dependency/*  com.vmware.gemfire.GemFireHello3 search "George AND NOT Bush"
+```
+
+
 
