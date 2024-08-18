@@ -28,6 +28,10 @@ And place this file in the directory $GEMFIRE_HOME/extensions
 
 Update .bashrc to add this environment setting and then logout and backin
 ```
-export export GEMFIRE_EXTENSIONS_REPOSITORY_PATH=$GEMFIRE_HOME/extensions
+export GEMFIRE_EXTENSIONS_REPOSITORY_PATH=$GEMFIRE_HOME/extensions
 ```   
 
+Now lets create a text index on the presidents
+```
+create lucene index --name=presidentIndex --region=/presidents --field=name
+```
