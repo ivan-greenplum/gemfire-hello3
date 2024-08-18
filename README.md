@@ -21,13 +21,13 @@ Run the query again
 query --query="SELECT * FROM /presidents"
 ```
 
-# Exercise 1:
-Add a command line option to differentiate the actions
+# Install Gemfire Text Search
+Download this file: vmware-gemfire-search-1.1.1.gfm
+
+And place this file in the directory $GEMFIRE_HOME/extensions
+
+Update .bashrc to add this environment setting and then logout and backin
 ```
--- delete-all
--- put-all
--- get-all
--- get-one [key]
--- delete-one [key]
+export export GEMFIRE_EXTENSIONS_REPOSITORY_PATH=$GEMFIRE_HOME/extensions
 ```   
 
