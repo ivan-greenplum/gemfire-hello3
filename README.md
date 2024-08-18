@@ -1,9 +1,16 @@
-Start by completing gemfire-hello
+Start by completing gemfire-hello and make sure you have a gemfire installed:
 https://github.com/ivan-greenplum/gemfire-hello
 
-Connect to gfsh and run a query:
+Create a locator and two servers in gfsh
 ```
-query --query="SELECT * FROM /presidents"
+start locator --dir state/locator1
+start server --server-port 0 --dir state/s1
+start server --server-port 0 --dir state/s2
+```
+
+Create a region for the data
+```
+create region --name presidents --type=PARTITION
 ```
 
 Compile the code in this repo
