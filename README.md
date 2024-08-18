@@ -22,6 +22,10 @@ Run the code
 ```
  java -cp target/gemfire-hello3-1.0-SNAPSHOT.jar:target/dependency/*  com.vmware.gemfire.GemFireHello3
 ```
+Deploy package to the server inside gfsh
+```
+deploy --jar=target/gemfire-hello3-1.0-SNAPSHOT.jar
+```
 
 Run the query again
 ```
