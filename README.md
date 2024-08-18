@@ -41,7 +41,7 @@ Update .bashrc to add this environment setting and then logout and backin
 ```
 export GEMFIRE_EXTENSIONS_REPOSITORY_PATH=$GEMFIRE_HOME/extensions
 ```   
-
+# Test Gemfire Text Search
 Now lets create a text index on the presidents
 ```
 create lucene index --name=presidentIndex --region=/presidents --field=name
@@ -67,6 +67,18 @@ Use boolean OR
 search lucene --name=presidentIndex --region=/presidents --queryString="John OR Bill" --defaultField=name
 ```
 
+Use Fuzzy Match
+```
+search lucene --name=presidentIndex --region=/presidents --queryString="Eisinhower" --defaultField=name
+search lucene --name=presidentIndex --region=/presidents --queryString="Eisinhower~" --defaultField=name
+```
+
+Use boosting
+```
+search lucene --name=presidentIndex --region=/presidents --queryString="George^2 Adams" --defaultField=name
+```
+George^2: The ^2 indicates that you want to boost the relevance score of the term "George" by a factor of 2. This means that results containing "George" will be ranked higher in the search results compared to those containing "Adams".
+Adams: The term "Adams" is included in the query without any boost, so it will have a standard relevance score.
 
 
 
