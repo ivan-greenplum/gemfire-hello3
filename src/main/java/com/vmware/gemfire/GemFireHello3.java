@@ -12,12 +12,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+// Import the President class
+import com.vmware.gemfire.President;
+
 public class GemFireHello3 {
 
-  public Map<Integer, String> readPresidentsFromFile(String csvFile) {
+  public Map<Integer, President> readPresidentsFromFile(String csvFile) {
         String line = "";
         String csvSplitBy = ",";
-        Map<Integer, String> presidentsMap = new HashMap<>();
+        Map<Integer, President> presidentsMap = new HashMap<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             // Skip the header line
@@ -34,7 +37,7 @@ public class GemFireHello3 {
                 String name = president[1];
 
                 // Add to map
-                presidentsMap.put(presidentNumber, name);
+                presidentsMap.put(presidentNumber, new President(name));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,7 +51,7 @@ public class GemFireHello3 {
         String p_value;
         ClientCache cache;
 	ClientCacheFactory factory;
-        Region<Integer, String> region;
+        Region<Integer, President> region;
 
 	factory = new ClientCacheFactory();
 
@@ -59,34 +62,34 @@ public class GemFireHello3 {
         cache = factory.create();
 
         // configure and create local proxy Region named example
-        region = cache.<Integer, String>createClientRegionFactory( ClientRegionShortcut.CACHING_PROXY).create("presidents");
+        region = cache.<Integer, President>createClientRegionFactory( ClientRegionShortcut.CACHING_PROXY).create("presidents");
 
         System.out.println("Cache with Local Proxy Region for 'presidents' created successfully");
 
 	String csvFile = "./us_presidents.csv";
 	GemFireHello3 reader = new GemFireHello3();
-	Map<Integer, String> presidentsMap = reader.readPresidentsFromFile(csvFile);
+	Map<Integer, President> presidentsMap = reader.readPresidentsFromFile(csvFile);
 
-	for (Map.Entry<Integer, String> entry : presidentsMap.entrySet()) {
+	for (Map.Entry<Integer, President> entry : presidentsMap.entrySet()) {
 		Integer presno = entry.getKey();
-		String  presname = entry.getValue();
+		President pres = entry.getValue();
 		try {
-			System.out.println("Put President Number: " + presno + ", Name: " + presname);
-			region.put(presno, presname);
-			System.out.println("Successfully put President Number: " + presno + ", Name: " + presname);
+			System.out.println("Put President Number: " + presno + ", Name: " + pres.getName());
+			region.put(presno, pres);
+			System.out.println("Successfully put President Number: " + presno + ", Name: " + pres.getName());
 		} catch (Exception e) {
-			System.err.println("Error putting President Number: " + presno + ", Name: " + presname);
+			System.err.println("Error putting President Number: " + presno + ", Name: " + pres.getName());
 			e.printStackTrace();
 		}
 	}
 
         System.out.println("Data Inserted to Gemfire Successfully");
 
-	for (Map.Entry<Integer, String> entry : region.entrySet()) {
+	for (Map.Entry<Integer, President> entry : region.entrySet()) {
 
 	    Integer key = entry.getKey();
-            String value = entry.getValue();
-            System.out.println("President #" + key + " was " + value);
+            President value = entry.getValue();
+            System.out.println("President #" + key + " was " + value.getName());
 	}
         cache.close();
     }
