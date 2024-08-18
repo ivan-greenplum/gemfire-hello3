@@ -67,6 +67,16 @@ Use boolean OR
 search lucene --name=presidentIndex --region=/presidents --queryString="John OR Bill" --defaultField=name
 ```
 
+Use boolean NOT
+```
+search lucene --name=presidentIndex --region=/presidents --queryString="George AND NOT Bush" --defaultField=name
+```
+
+Grouping
+```
+search lucene --name=presidentIndex --region=/presidents --queryString="(George AND Bush) OR (James AND NOT Madison)" --defaultField=name
+```
+
 Use Fuzzy Match
 ```
 search lucene --name=presidentIndex --region=/presidents --queryString="Eisinhower" --defaultField=name
