@@ -57,4 +57,16 @@ Another search
 search lucene --name=presidentIndex --region=/presidents --queryString="John" --defaultField=name
 ```
 
+Use boolean AND
+```
+search lucene --name=presidentIndex --region=/presidents --queryString="John AND Adams" --defaultField=name
+```
+
+Use boolean OR
+```
+search lucene --name=presidentIndex --region=/presidents --queryString="John OR Bill" --defaultField=name
+```
+
+
+
 
