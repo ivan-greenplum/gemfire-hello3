@@ -78,7 +78,9 @@ Use boosting
 search lucene --name=presidentIndex --region=/presidents --queryString="George^2 Adams" --defaultField=name
 ```
 The ^2 indicates that you want to boost the relevance score of the term "George" by a factor of 2. 
+
 This means that results containing "George" will be ranked higher in the search results compared to those containing "Adams".
+
 The term "Adams" is included in the query without any boost, so it will have a standard relevance score.
 
 
